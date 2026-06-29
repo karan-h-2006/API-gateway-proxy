@@ -1,0 +1,30 @@
+{
+  "name": "api-gateway-proxy",
+  "version": "1.0.0",
+  "description": "A proxy server (a middleware) implementing Rate Limiting and Analytics.",
+  "homepage": "https://github.com/karan-h-2006/API-gateway-proxy#readme",
+  "bugs": {
+    "url": "https://github.com/karan-h-2006/API-gateway-proxy/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karan-h-2006/API-gateway-proxy.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "nodemon": "^3.1.14",
+    "pg": "^8.22.0",
+    "zod": "^4.4.3"
+  }
+}
