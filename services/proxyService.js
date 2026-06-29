@@ -16,12 +16,18 @@ const HOP_BY_HOP_HEADERS = new Set([
   'content-encoding'
 ]);
 
-const buildUpstreamUrl = (req) => {
-  const baseUrl = new URL(env.UPSTREAM_BASE_URL);
+const buildUpstreamPath = (req) => {
   const proxyPathValue = Array.isArray(req.params.proxyPath)
     ? req.params.proxyPath.join('/')
     : req.params.proxyPath;
   const proxyPath = proxyPathValue ? `/${proxyPathValue}` : '';
+
+  return proxyPath || '/';
+};
+
+const buildUpstreamUrl = (req) => {
+  const baseUrl = new URL(env.UPSTREAM_BASE_URL);
+  const proxyPath = buildUpstreamPath(req);
   const normalizedBasePath = baseUrl.pathname.endsWith('/')
     ? baseUrl.pathname.slice(0, -1)
     : baseUrl.pathname;
@@ -108,5 +114,6 @@ const forwardRequest = async (req) => {
 };
 
 module.exports = {
-  forwardRequest
+  forwardRequest,
+  buildUpstreamPath
 };

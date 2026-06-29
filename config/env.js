@@ -13,8 +13,23 @@ const buildDatabaseUrl = (env) => {
   return `postgresql://${user}:${password}@${host}:${port}/${database}?schema=public`;
 };
 
+const buildRedisUrl = (env) => {
+  const host = env.REDIS_HOST || '127.0.0.1';
+  const port = env.REDIS_PORT || '6379';
+  const password = env.REDIS_PASSWORD
+    ? `:${encodeURIComponent(env.REDIS_PASSWORD)}@`
+    : '';
+  const db = env.REDIS_DB || '0';
+
+  return `redis://${password}${host}:${port}/${db}`;
+};
+
 if (!process.env.DATABASE_URL) {
   process.env.DATABASE_URL = buildDatabaseUrl(process.env);
+}
+
+if (!process.env.REDIS_URL) {
+  process.env.REDIS_URL = buildRedisUrl(process.env);
 }
 
 const envSchema = z.object({
@@ -30,6 +45,15 @@ const envSchema = z.object({
   API_KEY_SIZE: z.coerce.number().int().min(16).default(32),
   API_KEY_ENCODING: z.enum(['hex', 'base64url']).default('hex'),
   API_KEY_HEADER_NAME: z.string().default('x-api-key'),
+  REDIS_HOST: z.string().default('127.0.0.1'),
+  REDIS_PORT: z.coerce.number().int().positive().default(6379),
+  REDIS_PASSWORD: z.string().optional(),
+  REDIS_DB: z.coerce.number().int().min(0).default(0),
+  REDIS_URL: z.string().min(1),
+  RATE_LIMIT_MAX_REQUESTS: z.coerce.number().int().positive().default(10),
+  RATE_LIMIT_WINDOW_SECONDS: z.coerce.number().int().positive().default(60),
+  ANALYTICS_QUEUE_NAME: z.string().default('request-analytics'),
+  ANALYTICS_WORKER_CONCURRENCY: z.coerce.number().int().positive().default(5),
   PROXY_TIMEOUT_MS: z.coerce.number().int().positive().default(10000),
   UPSTREAM_BASE_URL: z.url().default('https://jsonplaceholder.typicode.com')
 });

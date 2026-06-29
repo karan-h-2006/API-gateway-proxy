@@ -16,20 +16,40 @@ model Developer {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   apiKeys      ApiKey[]
+  requestLogs  RequestLog[]
 }
 
 model ApiKey {
-  id         String    @id @default(uuid()) @db.Uuid
-  developerId String   @db.Uuid
-  name       String
-  keyPrefix  String
-  keyHash    String    @unique
-  lastUsedAt DateTime?
-  revokedAt  DateTime?
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  developer  Developer @relation(fields: [developerId], references: [id], onDelete: Cascade)
+  id          String       @id @default(uuid()) @db.Uuid
+  developerId String       @db.Uuid
+  name        String
+  keyPrefix   String
+  keyHash     String       @unique
+  lastUsedAt  DateTime?
+  revokedAt   DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  developer   Developer    @relation(fields: [developerId], references: [id], onDelete: Cascade)
+  requestLogs RequestLog[]
 
   @@index([developerId])
   @@index([developerId, revokedAt])
+}
+
+model RequestLog {
+  id             String    @id @default(uuid()) @db.Uuid
+  developerId    String    @db.Uuid
+  apiKeyId       String    @db.Uuid
+  method         String
+  gatewayPath    String
+  upstreamPath   String?
+  statusCode     Int
+  latencyMs      Int
+  wasRateLimited Boolean   @default(false)
+  requestedAt    DateTime  @default(now())
+  developer      Developer @relation(fields: [developerId], references: [id], onDelete: Cascade)
+  apiKey         ApiKey    @relation(fields: [apiKeyId], references: [id], onDelete: Cascade)
+
+  @@index([developerId, requestedAt(sort: Desc)])
+  @@index([apiKeyId, requestedAt(sort: Desc)])
 }
