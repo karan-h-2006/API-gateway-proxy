@@ -10,7 +10,5 @@ body:
   type: json
   content: |-
     {
-        "name": "My API Key 3",
-        "targetUrl": "https://api.example.com",
-        "rateLimit": 3
+        "name": "My API Key 3"
     }
