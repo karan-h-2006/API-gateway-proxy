@@ -1,0 +1,8 @@
+$kind: http-request
+name: Get Me
+method: GET
+url: '{{baseUrl}}/api/v1/auth/me'
+description: Get the currently authenticated user's profile. Requires a valid JWT token.
+headers:
+  - key: Authorization
+    value: 'Bearer {{authToken}}'

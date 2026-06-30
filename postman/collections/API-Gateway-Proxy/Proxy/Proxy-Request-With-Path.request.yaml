@@ -1,0 +1,8 @@
+$kind: http-request
+name: 'Proxy Request (With Path)'
+method: GET
+url: '{{baseUrl}}/proxy/{{proxyPath}}'
+description: Proxy a request to the configured target URL with a custom path. Authenticated via x-api-key header.
+headers:
+  - key: x-api-key
+    value: '{{proxyApiKey}}'

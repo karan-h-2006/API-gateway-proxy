@@ -1,0 +1,14 @@
+$kind: http-request
+name: Login
+method: POST
+url: "{{baseUrl}}/api/v1/auth/login"
+description: Login and receive a JWT token.
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "user1@gmail.com",
+      "password": "password1"
+    }

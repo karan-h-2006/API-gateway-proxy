@@ -145,3 +145,9 @@ vite.config.ts.timestamp-*
 
 #Journal data
 Journal/
+
+
+# Postman workspace
+.postman
+
+.agents

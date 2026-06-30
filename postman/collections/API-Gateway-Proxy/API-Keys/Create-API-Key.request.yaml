@@ -1,0 +1,16 @@
+$kind: http-request
+name: Create API Key
+method: POST
+url: "{{baseUrl}}/api/v1/api-keys"
+description: Create a new API key for proxying requests. Requires JWT authentication.
+headers:
+  Content-Type: application/json
+  Authorization: Bearer {{authToken}}
+body:
+  type: json
+  content: |-
+    {
+        "name": "My API Key 3",
+        "targetUrl": "https://api.example.com",
+        "rateLimit": 3
+    }

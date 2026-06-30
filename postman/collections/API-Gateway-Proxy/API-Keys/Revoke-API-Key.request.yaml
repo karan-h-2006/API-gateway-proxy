@@ -1,0 +1,8 @@
+$kind: http-request
+name: Revoke API Key
+method: PATCH
+url: '{{baseUrl}}/api/v1/api-keys/{{apiKeyId}}/revoke'
+description: Revoke (disable) an API key. Requires JWT authentication.
+headers:
+  - key: Authorization
+    value: 'Bearer {{authToken}}'

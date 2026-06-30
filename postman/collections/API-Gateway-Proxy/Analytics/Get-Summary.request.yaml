@@ -1,0 +1,8 @@
+$kind: http-request
+name: Get Summary
+method: GET
+url: '{{baseUrl}}/api/v1/analytics/summary'
+description: Get an analytics summary including request counts and error rates. Requires JWT authentication.
+headers:
+  - key: Authorization
+    value: 'Bearer {{authToken}}'

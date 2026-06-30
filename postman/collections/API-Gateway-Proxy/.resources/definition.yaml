@@ -1,0 +1,13 @@
+$kind: collection
+name: API Gateway Proxy
+variables:
+  - key: baseUrl
+    value: 'http://localhost:3000'
+  - key: authToken
+    value: ''
+  - key: apiKeyId
+    value: ''
+  - key: proxyApiKey
+    value: ''
+  - key: proxyPath
+    value: 'your/path/here'

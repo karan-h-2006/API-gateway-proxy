@@ -1,0 +1,8 @@
+$kind: http-request
+name: Regenerate API Key
+method: POST
+url: '{{baseUrl}}/api/v1/api-keys/{{apiKeyId}}/regenerate'
+description: Regenerate the secret for an existing API key. Requires JWT authentication.
+headers:
+  - key: Authorization
+    value: 'Bearer {{authToken}}'

@@ -1,0 +1,8 @@
+$kind: http-request
+name: Get Request Logs
+method: GET
+url: '{{baseUrl}}/api/v1/analytics/requests'
+description: Retrieve request logs for the authenticated user. Requires JWT authentication.
+headers:
+  - key: Authorization
+    value: 'Bearer {{authToken}}'

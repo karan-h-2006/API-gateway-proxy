@@ -1,0 +1,5 @@
+$kind: http-request
+name: Get Health Check
+method: GET
+url: '{{baseUrl}}/health'
+description: Check if the server is running. No authentication required.

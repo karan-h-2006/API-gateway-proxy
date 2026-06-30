@@ -1,6 +1,6 @@
 # API Gateway Proxy
 
-A student-friendly backend portfolio project that acts as a lightweight API gateway/proxy.
+A backend that acts as a lightweight API gateway/proxy.
 
 It supports:
 - developer registration and login
@@ -62,8 +62,7 @@ The gateway expects the API key in the `x-api-key` header by default. If the key
 Rate limiting is applied per API key using Redis when Redis is available.
 
 Default policy:
-- `10` requests
-- per `60` seconds
+- `10` requests per `60` seconds
 
 Rate limit headers are returned on proxy responses:
 - `X-RateLimit-Limit`
@@ -180,6 +179,22 @@ npm run prisma:push
 ```
 
 ### 5. Optional but recommended: start Redis
+
+To start Redis, you can use Docker:
+
+```bash
+docker run -d --name redis -p 6379:6379 redis:7-alpine
+```
+
+OR
+
+You can install Redis locally in linux(wsl):
+
+```bash
+sudo apt update
+sudo apt install redis-server
+sudo service redis-server start
+```
 
 If Redis is running, the app will use:
 - Redis-backed rate limiting

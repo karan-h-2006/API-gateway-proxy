@@ -1,6 +1,8 @@
 const { z } = require('zod');
 const apiKeyService = require('../services/apiKeyService');
 
+const uuidRegex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+
 const createApiKeySchema = z.object({
   name: z.string().trim().min(2).max(100)
 });
@@ -22,6 +24,10 @@ const listApiKeys = async (req, res) => {
 };
 
 const revokeApiKey = async (req, res) => {
+  if (!uuidRegex.test(req.params.id)) {
+    return res.status(400).json({ error: 'Invalid API Key ID format' });
+  }
+
   const result = await apiKeyService.revokeApiKey({
     id: req.params.id,
     developerId: req.user.id
@@ -31,6 +37,10 @@ const revokeApiKey = async (req, res) => {
 };
 
 const regenerateApiKey = async (req, res) => {
+  if (!uuidRegex.test(req.params.id)) {
+    return res.status(400).json({ error: 'Invalid API Key ID format' });
+  }
+
   const apiKey = await apiKeyService.regenerateApiKey({
     id: req.params.id,
     developerId: req.user.id
